@@ -1,0 +1,12 @@
+
+const toggle=document.querySelector('.menu-toggle');
+const links=document.querySelector('.navlinks');
+if(toggle&&links){toggle.addEventListener('click',()=>{const open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));if(open&&nd){nd.setAttribute('hidden','');nt.setAttribute('aria-expanded','false');}});}
+document.querySelectorAll('[data-contact-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form);const subject=encodeURIComponent('Website enquiry: '+(d.get('division')||'General enquiry'));const body=encodeURIComponent('Name: '+d.get('name')+'\nCompany: '+(d.get('company')||'Not provided')+'\nEmail: '+d.get('email')+'\nPhone: '+(d.get('phone')||'Not provided')+'\nDivision: '+(d.get('division')||'Not specified')+'\n\nMessage:\n'+d.get('message'));window.location.href='mailto:info@mascotmellowpowerproject.com?subject='+subject+'&body='+body;}));
+
+const nt=document.querySelector('.nav-dropdown-trigger');
+const nd=document.querySelector('.nav-dropdown');
+if(nt&&nd){nt.addEventListener('click',e=>{e.stopPropagation();e.preventDefault();if(nd.hasAttribute('hidden')){nd.removeAttribute('hidden');const r=nt.getBoundingClientRect();const dw=nd.offsetWidth;const space=Math.max(document.documentElement.clientWidth,window.innerWidth||0)-r.left;nd.style.right='';nd.style.left='0px';if(dw>space){nd.style.left='';nd.style.right='0px';}nt.setAttribute('aria-expanded','true');}else{nd.setAttribute('hidden','');nt.setAttribute('aria-expanded','false');}});document.addEventListener('click',e=>{if(!nt.contains(e.target)&&!nd.contains(e.target)){nd.setAttribute('hidden','');nt.setAttribute('aria-expanded','false');}});}
+
+const slidesWrap=document.querySelector('.hero-slides');
+if(slidesWrap){const slides=Array.from(slidesWrap.querySelectorAll('.hero-slide'));const prev=document.querySelector('.hero-arrow--prev');const next=document.querySelector('.hero-arrow--next');let idx=0;let timer=null;const show=i=>{idx=(i+slides.length)%slides.length;slidesWrap.classList.add('manual');slides.forEach((s,n)=>s.classList.toggle('is-active',n===idx));};const arm=()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;clearInterval(timer);timer=setInterval(()=>show(idx+1),5000);};if(prev)prev.addEventListener('click',()=>{show(idx-1);arm();});if(next)next.addEventListener('click',()=>{show(idx+1);arm();});}
